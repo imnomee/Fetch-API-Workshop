@@ -6,15 +6,15 @@ const breedUrl = "https://dog.ceo/api/breed/${breed}/images";
 // ------------------------------------------
 //  FETCH FUNCTIONS
 // ------------------------------------------
-fetchData("https://dog.ceo/api/breeds/image/random").then(data =>
-    generateImage(data)
-);
+// fetchData("https://dog.ceo/api/breeds/image/random").then(data =>
+//     generateImage(data)
+// );
 
-fetchData("https://dog.ceo/api/breeds/list/all").then(data => {
-    const dataMessage = data.message;
-    const messageKeys = Object.keys(dataMessage);
-    generationOptions(messageKeys);
-});
+// fetchData("https://dog.ceo/api/breeds/list/all").then(data => {
+//     const dataMessage = data.message;
+//     const messageKeys = Object.keys(dataMessage);
+//     generationOptions(messageKeys);
+// });
 
 function fetchData(url) {
     return fetch(url)
@@ -23,6 +23,16 @@ function fetchData(url) {
         .catch(error => console.error("Looks like there was an error", error));
 }
 
+Promise.all([
+    fetchData("https://dog.ceo/api/breeds/image/random"),
+    fetchData("https://dog.ceo/api/breeds/list/all")
+]).then(data => {
+    const breedsList = data[1].message;
+    const breeds = Object.keys(breedsList);
+    const images = data[0];
+    generationOptions(breeds);
+    generateImage(images);
+});
 // ------------------------------------------
 //  HELPER FUNCTIONS
 // ------------------------------------------
