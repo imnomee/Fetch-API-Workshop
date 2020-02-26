@@ -4,7 +4,9 @@ const form = document.querySelector("form");
 const breedUrl = "https://dog.ceo/api/breed/${breed}/images";
 
 // ------------------------------------------
-//  FETCH FUNCTIONS
+//  FETCH FUNCTIONS -
+//  HERE WE HAVE SEPERATE FETCH FUNCTIONS BUT
+//  WE HAVE USED PROMISE ALL AND USED ALL TOGEHTER IN ONE CALL
 // ------------------------------------------
 // fetchData("https://dog.ceo/api/breeds/image/random").then(data =>
 //     generateImage(data)
@@ -23,6 +25,8 @@ function fetchData(url) {
         .catch(error => console.error("Looks like there was an error", error));
 }
 
+//PROMISE.ALL RESOLVES ALL THE FETCH PROMISES TOGHETHER.
+//ITS ONE OR NONE METHOD. IF ONE FAILS ALL FAILS
 Promise.all([
     fetchData("https://dog.ceo/api/breeds/image/random"),
     fetchData("https://dog.ceo/api/breeds/list/all")
